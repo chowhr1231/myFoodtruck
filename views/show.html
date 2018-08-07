@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <!-- fontawesome ICON -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="dist/css//codingBooster.css">
+
+    <title>youtube_BootstrapStudy</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">붕붕이</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">소개
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="instructor.html">개발자</a>
+                    </li>
+                    <li class=" nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">컨텐츠
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="nav-link" href="#">위치</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="#">리뷰</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="boardList.html">문의</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
+                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">검색</button>
+                    </form>
+                </ul>
+                <ul class="navbar-nav nav-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navbarDropdownLogin" role="button" aria-haspopup="true"
+                            aria-expanded="false">접속하기
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
+                            <li>
+                                <a class="nav-link disabled" href="#">로그인</a>
+                            </li>
+                            <li>
+                                <a class="nav-link disabled" href="#">회원가입</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 컨텐츠 영역 -->
+    <!--
+        알아가는 점
+        1. button을 a태그처럼 사용하고 싶으면 a태그에 class를 btn으로 하면 된다.
+        (참고) 부트스트랩이 아닐경우 input태크로 이용해야 한다.
+        ex) input type=button value="" onClick="location.href=''" 이런 식으로
+    -->
+    <div class="container my-3">
+        <h3 class="my-3">게시글</h3>
+        <hr>
+        <form>
+            <div class="form-group row">
+                <label for="user" class="col-sm-2 font-weight-bold">작성자</label>
+                <div class="col-sm-6">
+                    <label>홍길동</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="user" class="col-sm-2 font-weight-bold">작성일</label>
+                <div class="col-sm-6">
+                    <label>2017.01.01</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="content" class="col-sm-2 font-weight-bold">문의내용</label>
+                <div class="col-sm-6">
+                    <label>
+                        나는 이런 내용으로 문의 할겁니다. 잘 있으쇼잉 얼마나 많은 내용을 담을 수 있을까???? 이제 곧 페이지는 완성되고 그 다음은 서버 연결을 해야지 DB이용해서 게시글들도 관리하고 ㅎㅎㅎ
+                    </label>
+                </div>
+
+            </div>
+            <hr>
+            <div class="text-center">
+                <a class="btn btn-outline-secondary" href="boardList.html">목록보기</a>
+                <a class="btn btn-outline-info float-right mx-1" href="modify.html">수정하기</a>
+
+                <!-- button triger modal -->
+                <!-- 
+                    어려웠던 점: modal이 계속 바로 닫힘 현상이 있었는데 button의 type='button'을 안 해줘서 발생했다.
+                    원인: button태그가 브라우저마다 default값이 다르기 때문이다. reference에서도 button태그는 항상 type을 명시하라고 함.
+                        type이 button, request, submit이 있다.
+                 -->
+                <button type="button" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#modalDelete" id="mod">삭제하기</button>
+
+                <!-- modal 영역 -->
+                <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalDeleteLabel">게시글을 삭제합니다.</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <input type="password" class="form-control" placeholder="암호">
+                                    <br>
+                                    <input type="submit" class="btn btn-large btn-danger" id="delete" onclick="return check()" value="확인">
+                                    <script type="text/JavaScript">
+                                        function check() {
+                                            var mod = document.getElementById('mod');
+                                            alert('Submit button Clicked!');
+                                            return false;
+                                        }
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--footer 영역-->
+    <footer class="container-fluid" style="background-color: #f8f9fa">
+        <br>
+        <div class="row">
+            <div class="col-lg-3" style="text-align: center">
+                <h6>Copyright &copy; 2018</h6>
+                <h6>송윤재 (Yoonjae Song)</h6>
+            </div>
+            <div class="col-lg-4">
+                <h5>대표자 소개</h5>
+                <p>아직 할줄 아는 것은 없습니다. 일단 Bootstrap으로 게시판을 만들어 푸드트럭관련된 프로젝트를 하나 만들려고 합니다.</p>
+            </div>
+            <div class="col-lg-2">
+                <h6 style="text-align: center">SNS</h6>
+                <div class="list-group">
+                    <a href="#" class="list-group-item">
+                        <i class="fab fa-facebook"></i>&nbsp;&nbsp;facebook</a>
+                    <a href="#" class="list-group-item">
+                        <i class="fab fa-instagram"></i>&nbsp;&nbsp;Instargram</a>
+                    <a href="#" class="list-group-item">
+                        <i class="fab fa-twitter-square"></i>&nbsp;&nbsp;twitter</a>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <h5 style="text-align: center">
+                    <span class="glyphicon glyphicon-ok"></span>chowHR1231</h5>
+            </div>
+        </div>
+        <br>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
