@@ -12,16 +12,16 @@
     <!-- fontawesome ICON -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="dist/css//codingBooster.css">
     <link rel="stylesheet" href="../stylesheets/coding.css">
+    <link rel="stylesheet" href="stylesheets/coding.css">
 
-    <title>youtube_BootstrapStudy</title>
+    <title>게시글 작성</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">붕붕이</a>
+            <a class="navbar-brand" href="http://localhost:3000">붕붕이</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">소개
+                        <a class="nav-link" href="http://localhost:3000">소개
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -49,7 +49,7 @@
                                 <a class="nav-link" href="#">리뷰</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="boardList.html">문의</a>
+                                <a class="nav-link" href="/board">문의</a>
                             </li>
                         </ul>
                     </li>
@@ -88,26 +88,33 @@
             <span class="lead">문의사항을 작성해주세요.</span>
         </h3>
         <hr>
-        <form>
+        <form action="/board/create" method="POST">
             <div class="form-group row">
                 <div class="col-sm-1"></div>
                 <label for="user" class="col-sm-2 col-form-label font-weight-bold">작성자</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="user" placeholder="작성자">
+                    <input type="text" class="form-control" name="user" id="user" placeholder="작성자">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-1"></div>
+                <label for="title" class="col-sm-2 col-form-label font-weight-bold">제목</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="제목">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-1"></div>
                 <label for="password" class="col-sm-2 col-form-label font-weight-bold">비밀번호</label>
                 <div class="col-sm-6">
-                    <input type="password" class="form-control" id="password" placeholder="비밀번호">
+                    <input type="password" class="form-control" name="pw" id="password" placeholder="비밀번호">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-1"></div>
                 <label for="content" class="col-sm-2 col-form-label font-weight-bold">문의내용</label>
                 <div class="col-sm-6">
-                    <textarea class="form-control" id="content" rows="10"></textarea>
+                    <textarea class="form-control" name="content" id="content" rows="10"></textarea>
                 </div>
             </div>
             <hr>
@@ -128,22 +135,21 @@
             </div>
             <div class="col-lg-4">
                 <h5>대표자 소개</h5>
-                <p>아직 할줄 아는 것은 없습니다. 일단 Bootstrap으로 게시판을 만들어 푸드트럭관련된 프로젝트 하나 만들려고 합니다.</p>
+                <p>아직 할줄 아는 것은 없습니다. 일단 Bootstrap으로 게시판을 만들어 푸드트럭관련된 프로젝트를 하나 만들려고 합니다.</p>
             </div>
             <div class="col-lg-2">
                 <h6 style="text-align: center">SNS</h6>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">
+                    <a href="https://www.facebook.com/" class="list-group-item">
                         <i class="fab fa-facebook"></i>&nbsp;&nbsp;facebook</a>
-                    <a href="#" class="list-group-item">
+                    <a href="https://www.instagram.com/?hl=ko" class="list-group-item">
                         <i class="fab fa-instagram"></i>&nbsp;&nbsp;Instargram</a>
-                    <a href="#" class="list-group-item">
+                    <a href="https://twitter.com/?lang=ko" class="list-group-item">
                         <i class="fab fa-twitter-square"></i>&nbsp;&nbsp;twitter</a>
                 </div>
             </div>
             <div class="col-lg-2">
-                <h5 style="text-align: center">
-                    <span class="glyphicon glyphicon-ok"></span>chowHR1231</h5>
+                <h5 style="text-align: center">chowHR1231</h5>
             </div>
         </div>
         <br>

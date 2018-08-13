@@ -12,20 +12,15 @@
     <!-- fontawesome ICON -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
-    <!--
-        위에는 html파일에서 바로 띄울 때 필요한 것
-        아래는 서버에서 띄울 때 public폴더 즉, 정적인 파일이기 때문에 필요한 것
-     -->
-    <link rel="stylesheet" href="dist/css//codingBooster.css">
-    <link rel="stylesheet" href="../stylesheets/coding.css">
+    <link rel="stylesheet" href="stylesheets/coding.css"> 
 
-    <title>boardList</title>
+    <title>게시판</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">붕붕이</a>
+            <a class="navbar-brand" href="http://localhost:3000">붕붕이</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,12 +28,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">소개
+                        <a class="nav-link" href="http://localhost:3000">소개
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="instructor.html">개발자</a>
+                        <a class="nav-link" href="#">개발자</a>
                     </li>
                     <li class=" nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdown" role="button" aria-haspopup="true"
@@ -53,7 +48,7 @@
                                 <a class="nav-link" href="#">리뷰</a>
                             </li>
                             <li>
-                                <a class="nav-link active" href="#">문의</a>
+                                <a class="nav-link active" href="/board">문의</a>
                             </li>
                         </ul>
                     </li>
@@ -97,7 +92,7 @@
                             <thead class="thead-dark">
                                 <tr class="text-center">
                                     <th style="width: 5%;" class="text-left">No.</th>
-                                    <th style="width: 25%;">제목</th>
+                                    <th style="width: 20%;">제목</th>
                                     <th style="width: 35%;">내용</th>
                                     <th style="width: 20%;">작성자</th>
                                     <th>작성일</th>
@@ -178,8 +173,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center">
+                        <nav aria-label="Page navigation" class="d-flex justify-content-between">
+                            <div style="width: 86.17px"></div>
+                            <ul class="pagination ">
                                 <li class="page-item">
                                     <a class="page-link" href="#" style="color: black;" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
@@ -208,6 +204,9 @@
                                     </a>
                                 </li>
                             </ul>
+                            <div>
+                                <a class="btn btn-outline-info ml" href="/board/create">작성하기</a>
+                            </div>
                         </nav>
                     </div>
                 </div>
