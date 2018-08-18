@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+
     <!-- fontawesome ICON -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
 
-    <link rel="stylesheet" href="../stylesheets/coding.css">
-    <link rel="stylesheet" href="../public/stylesheets/coding.css">
+    <link rel="stylesheet" href="/stylesheets/coding.css">
 
     <title>게시글</title>
 </head>
@@ -93,13 +95,17 @@
             <div class="form-group row">
                 <label for="user" class="col-sm-2 font-weight-bold">제목</label>
                 <div class="col-sm-6">
-                    <label>title</label>
+                    <label>
+                        <%=data[0].title%>
+                    </label>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="user" class="col-sm-2 font-weight-bold">작성자</label>
                 <div class="col-sm-6">
-                    <label>홍길동</label>
+                    <label>
+                        <%=data[0].name%>
+                    </label>
                 </div>
             </div>
 
@@ -107,14 +113,14 @@
                 <label for="content" class="col-sm-2 font-weight-bold">문의내용</label>
                 <div class="col-sm-6">
                     <label>
-                        나는 이런 내용으로 문의 할겁니다. 잘 있으쇼잉 얼마나 많은 내용을 담을 수 있을까???? 이제 곧 페이지는 완성되고 그 다음은 서버 연결을 해야지 DB이용해서 게시글들도 관리하고 ㅎㅎㅎ
+                        <%=data[0].contents%>
                     </label>
                 </div>
 
             </div>
             <hr>
             <div class="text-center">
-                <a class="btn btn-outline-secondary" href="board/1">목록보기</a>
+                <a class="btn btn-outline-secondary" href="../1">목록보기</a>
                 <a class="btn btn-outline-info float-right mx-1" href="modify.html">수정하기</a>
 
                 <!-- button triger modal -->
@@ -137,15 +143,38 @@
                             </div>
                             <div class="modal-body">
                                 <form>
-                                    <input type="password" class="form-control" placeholder="암호">
+                                    <input type="password" id="m" class="form-control" placeholder="암호">
                                     <br>
-                                    <input type="submit" class="btn btn-large btn-danger" id="delete" onclick="return check()" value="확인">
+                                    <input type="submit" class="btn btn-large btn-danger" id="delete" value="확인">
                                     <script type="text/JavaScript">
-                                        function check() {
-                                            var mod = document.getElementById('mod');
-                                            alert('Submit button Clicked!');
-                                            return false;
-                                        }
+
+                                            $("#delete").click(function() {
+                                                if(!$('#m').val()){
+                                                    
+                                                    alert('empty');
+                                                    return false;
+
+                                                }
+                                                else{
+                                                    alert('1');
+                                                    $.ajax({
+                                                        url: 'localhost:3000',
+                                                        dataType: 'json',
+                                                        type: 'GET',
+                                                        success: function(){
+                                                            alert('success');
+                                                        },
+                                                        error: function(){
+                                                            alert('error');
+                                                        }
+                                                        
+                                                    });
+                                                    alert('2');
+                                                    return true;
+
+                                                }
+                                            });
+
                                     </script>
                                 </form>
                             </div>

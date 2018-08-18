@@ -1,11 +1,60 @@
 const moment = require('moment');
 const dbPool = require('../config/dbconfig');
-const {checkValid} = require('../util');
+const { checkValid } = require('../util');
 
-//초기 화면
-exports.boardList = (req, res)=>{
+//게시판 api
+exports.boardList = (req, res) => {
 
-  res.render('boardList.html');
+  const page = req.params.page;
+
+  dbPool.getConnection((err, conn) => {
+
+    if (err) {
+
+      conn.release();
+      console.log('DB Pool Error: ' + err);
+      res.send(400, 'DB Pool Error');
+
+    }
+
+    let selectQuery = 'SELECT boardID, contents, name, createdate, title '
+      + 'FROM testboard '
+      + 'ORDER BY boardId DESC '
+      + 'LIMIT ?, 8;';
+
+    let countQuery = 'SELECT COUNT(boardID) FROM testboard;';
+
+    conn.query(selectQuery, [8 * (page - 1)], (err, queryResult) => {
+
+      if (err) {
+
+        conn.release();
+        console.log('Error Select Query: ', err);
+        res.send(404, 'Error select qeury: ', err);
+
+      }
+
+      conn.query(countQuery, (err, countResult) => {
+
+        if (err) {
+
+          conn.release();
+          console.log('Error Count Qeury: ', err);
+          res.send(404, 'Error Count Query: ', err);
+
+        }
+
+        let count = countResult[0]['COUNT(boardID)'];
+
+        res.status(200);
+        //queryResult-DB에서 가져온 정보 page-url에서 받아온 정보 count-DB에 있는 게시글 개수
+        res.render('boardList', { data: queryResult, page: page, count: count });
+
+      });
+
+    });
+
+  });
 
 }
 
@@ -15,40 +64,40 @@ exports.boardList = (req, res)=>{
   1. 작성자 최대 30자
   2. 비밀번호 최대 10자
 */
-exports.createBoard = (req, res)=>{
+exports.createBoard = (req, res) => {
 
-  const {user, pw, title, content} = req.body;
-  
-  if(checkValid(user.length, pw.length, content.length) == 1){
+  const { user, pw, title, content } = req.body;
 
-    dbPool.getConnection((err,conn)=>{
+  if (checkValid(user.length, pw.length, content.length) == 1) {
 
-      if(err){
+    dbPool.getConnection((err, conn) => {
+
+      if (err) {
 
         conn.release();
         console.log('DB Pool Error');
-        res.send(400, 'DB Pool Error');
+        res.send(404, 'DB Pool Error');
 
       }
 
       let curTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
 
       let params = [user, title, pw, content, curTime];
-      let sql = 'INSERT INTO testboard (`name`, `title`, `password`, `contents`, `createdate`) ' 
-              + 'VALUES(?, ?, ?, ?, ?);'
+      let sql = 'INSERT INTO testboard (`name`, `title`, `password`, `contents`, `createdate`) '
+        + 'VALUES(?, ?, ?, ?, ?);'
 
-      conn.query(sql, params, (err, queryResult)=>{
+      conn.query(sql, params, (err, queryResult) => {
 
-        if(err){
+        if (err) {
 
           conn.release();
           console.log('SQL query Error');
-          res.send(400, 'SQL query Error');
+          res.send(404, 'SQL query Error');
 
         }
 
         conn.release();
-        res.redirect(200, '/board');
+        res.redirect('/board/1');
 
       });
 
@@ -60,8 +109,77 @@ exports.createBoard = (req, res)=>{
 
 }
 
-exports.createPage = (req, res)=>{
+exports.createPage = (req, res) => {
 
   res.render('write.html');
+
+}
+
+//게시글 api
+exports.boardShow = (req, res) => {
+
+  let boardId = req.params.boardID;
+
+  dbPool.getConnection((err, conn) => {
+
+    if (err) {
+
+      conn.release();
+      console.log('DB Pool Error: ', err);
+      res.send(404, 'DB Pool Error: ', err);
+
+    }
+
+    let selectQuery = 'SELECT title, name, contents FROM testboard WHERE boardID = ?;';
+
+    conn.query(selectQuery, [boardId], (err, result) => {
+
+      if (err) {
+
+        conn.release();
+        console.log('Query Error: ', err);
+        res.send(404, 'Query Error: ', err);
+
+      }
+
+      res.render('show', { data: result });
+
+    });
+
+  });
+
+}
+
+exports.modify = (req, res) => {
+
+  let boardId = req.params.boardID;
+
+  dbPool.getConnection((err, conn)=>{
+
+    if(err){
+
+      conn.release();
+      console.log('DB Pool Error: ', err);
+      res.status(404).body('DB Pool Error: ', err);
+
+    }
+
+    let selectQuery = 'SELECT title, name, contents password FROM testboard WHERE boardID = ?;';
+
+    conn.query(selectQuery, [boardId], (err, queryResult)=>{
+
+      if(err){
+
+        conn.release();
+        console.log('Select Query Error: ', err);
+        res.status(404).body('Select Query Error: ', err);
+
+      }
+
+      res.render('modify', {data: queryResult});
+
+    });
+
+  });
 
 }
