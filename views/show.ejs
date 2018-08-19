@@ -1,3 +1,6 @@
+<!--
+    아직 댓글 화면을 못 만들었음
+-->
 <!doctype html>
 <html lang="en">
 
@@ -121,8 +124,40 @@
             <hr>
             <div class="text-center">
                 <a class="btn btn-outline-secondary" href="../1">목록보기</a>
-                <a class="btn btn-outline-info float-right mx-1" href="modify.html">수정하기</a>
+                <button type="button" class="btn btn-outline-info float-right mx-1" data-toggle="modal" data-target="#modalModify">수정하기</button>
+                <!-- modify modal -->
+                <div class="modal fade" id="modalModify" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalDeleteLabel">게시글을 수정합니다.</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <input type="password" id="pw" class="form-control" placeholder="암호">
+                                    <br>
+                                    <input type="submit" class="btn btn-large btn-danger" id="modify" onclick="moveUrl()" value="확인">
+                                    <script type="text/javascript">
+                                        function moveUrl() {
 
+                                            if(!$('#pw').val())
+                                                return false;
+                                            else{
+                                                
+                                                opener.location.replace="https://www.naver.com/";
+
+                                            }
+
+                                        }
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- button triger modal -->
                 <!-- 
                     어려웠던 점: modal이 계속 바로 닫힘 현상이 있었는데 button의 type='button'을 안 해줘서 발생했다.
@@ -146,36 +181,6 @@
                                     <input type="password" id="m" class="form-control" placeholder="암호">
                                     <br>
                                     <input type="submit" class="btn btn-large btn-danger" id="delete" value="확인">
-                                    <script type="text/JavaScript">
-
-                                            $("#delete").click(function() {
-                                                if(!$('#m').val()){
-                                                    
-                                                    alert('empty');
-                                                    return false;
-
-                                                }
-                                                else{
-                                                    alert('1');
-                                                    $.ajax({
-                                                        url: 'localhost:3000',
-                                                        dataType: 'json',
-                                                        type: 'GET',
-                                                        success: function(){
-                                                            alert('success');
-                                                        },
-                                                        error: function(){
-                                                            alert('error');
-                                                        }
-                                                        
-                                                    });
-                                                    alert('2');
-                                                    return true;
-
-                                                }
-                                            });
-
-                                    </script>
                                 </form>
                             </div>
                         </div>

@@ -66,7 +66,7 @@ exports.boardList = (req, res) => {
 */
 exports.createBoard = (req, res) => {
 
-  const { user, pw, title, content } = req.body;
+  const { name, pw, title, content } = req.body;
 
   if (checkValid(user.length, pw.length, content.length) == 1) {
 
@@ -82,11 +82,11 @@ exports.createBoard = (req, res) => {
 
       let curTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
 
-      let params = [user, title, pw, content, curTime];
+      let values = [user, title, pw, content, curTime];
       let sql = 'INSERT INTO testboard (`name`, `title`, `password`, `contents`, `createdate`) '
         + 'VALUES(?, ?, ?, ?, ?);'
 
-      conn.query(sql, params, (err, queryResult) => {
+      conn.query(sql, values, (err, queryResult) => {
 
         if (err) {
 
@@ -97,6 +97,7 @@ exports.createBoard = (req, res) => {
         }
 
         conn.release();
+        res.status(200);
         res.redirect('/board/1');
 
       });
@@ -119,6 +120,7 @@ exports.createPage = (req, res) => {
 exports.boardShow = (req, res) => {
 
   let boardId = req.params.boardID;
+  let page = req.params.page;
 
   dbPool.getConnection((err, conn) => {
 
@@ -130,7 +132,7 @@ exports.boardShow = (req, res) => {
 
     }
 
-    let selectQuery = 'SELECT title, name, contents FROM testboard WHERE boardID = ?;';
+    let selectQuery = 'SELECT title, name, contents, password FROM testboard WHERE boardID = ?;';
 
     conn.query(selectQuery, [boardId], (err, result) => {
 
@@ -142,7 +144,7 @@ exports.boardShow = (req, res) => {
 
       }
 
-      res.render('show', { data: result });
+      res.render('show', { data: result, page: page, boardID: boardId });
 
     });
 
@@ -150,7 +152,8 @@ exports.boardShow = (req, res) => {
 
 }
 
-exports.modify = (req, res) => {
+//게시글 수정 api
+exports.modifyView = (req, res) => {
 
   let boardId = req.params.boardID;
 
@@ -177,6 +180,45 @@ exports.modify = (req, res) => {
       }
 
       res.render('modify', {data: queryResult});
+
+    });
+
+  });
+
+}
+
+exports.modify = (req, res)=>{
+
+  let {title, name, password, contents} = req.body;
+  let boardID = req.params.boardID;
+  let page = req.params.page;
+
+  dbPool.getConnection((err, conn)=>{
+
+    if(err){
+
+      conn.release();
+      console.log('DB Poll Error: ', err);
+      res.status(404).body('DB Pool Error: ', err);
+
+    }
+
+    let updateQuery = 'UPDATE testboard SET title=?, name=?, password=?, contents=?, createdate=? WHERE boardID = ?;'
+    let curTime = moment(Date()).format('YYYY-MM-DD HH:mm:ss');
+    let values = [title, name, password, contents, curTime, boardID];
+
+    conn.query(updateQuery, values, (err, queryResult)=>{
+
+      if(err){
+
+        conn.release();
+        console.log('Update Query Error: ', err);
+        res.status(404).body('Update Query Error: ', err);
+
+      }
+
+      res.status(200);
+      res.redirect('/board/' + page + '/' + boardID);
 
     });
 
