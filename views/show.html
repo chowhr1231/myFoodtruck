@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
     <!-- fontawesome ICON -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
@@ -115,7 +118,14 @@
             <hr>
             <div class="text-center">
                 <a class="btn btn-outline-secondary" href="board/1">목록보기</a>
-                <a class="btn btn-outline-info float-right mx-1" href="modify.html">수정하기</a>
+                <button type="button" onclick="check()" class="btn btn-outline-info float-right" id="modify">수정하기</button>
+                <script type="text/JavaScript">
+                    $(function(){
+                        $('#modify').click(function(){
+                            $('div.modal').modal({remote: 'index.html'});
+                        });
+                    });
+                </script>
 
                 <!-- button triger modal -->
                 <!-- 
@@ -136,15 +146,14 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
-                                    <input type="password" class="form-control" placeholder="암호">
+                                <form action="https://www.naver.com/" method="GET">
+                                    <input type="password" class="form-control" id="delete" placeholder="암호">
                                     <br>
-                                    <input type="submit" class="btn btn-large btn-danger" id="delete" onclick="return check()" value="확인">
+                                    <input type="submit" class="btn btn-large btn-danger"  onclick="check()" value="확인">
                                     <script type="text/JavaScript">
                                         function check() {
-                                            var mod = document.getElementById('mod');
-                                            alert('Submit button Clicked!');
-                                            return false;
+                                            window.location.href='https://www.naver.com/';
+                                            return true;
                                         }
                                     </script>
                                 </form>

@@ -1,3 +1,11 @@
+<!-- 
+    1. 게시판 불러와 랜더를해 (기존방식같은경우에는 PASSWORD는 불러오지 않음)
+    2. 수정을할거면 수정할 게시물번호와, 비밀번호를 서버에 전송 -> AJAX 활용하여 서버에 데이터 전송이죠
+        2. 암호 입력칸에 암호를 입력하고 확인 버튼을 누르면 Javascript로 암호 입력칸에 데이터를 파싱하여 AJAX를 통해 전송한다.
+    3. 서버에서는 게시물번화와 비밀번호를 select 해서 결과값이 True 이면 OK -> 수정 리다이렉트 표시 False Error Log alert
+-->
+
+
 <!--
     아직 댓글 화면을 못 만들었음
 -->
@@ -13,8 +21,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
     <!-- fontawesome ICON -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
@@ -123,7 +131,7 @@
             </div>
             <hr>
             <div class="text-center">
-                <a class="btn btn-outline-secondary" href="../1">목록보기</a>
+                <a class="btn btn-outline-secondary" href="../<%=page%>">목록보기</a>
                 <button type="button" class="btn btn-outline-info float-right mx-1" data-toggle="modal" data-target="#modalModify">수정하기</button>
                 <!-- modify modal -->
                 <div class="modal fade" id="modalModify" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
@@ -136,19 +144,51 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form onsubmit="return false">
                                     <input type="password" id="pw" class="form-control" placeholder="암호">
                                     <br>
-                                    <input type="submit" class="btn btn-large btn-danger" id="modify" onclick="moveUrl()" value="확인">
+                                    <button type="button" class="btn btn-large btn-danger" id="modify" onclick="return moveModify()" value="확인">확인</button>
                                     <script type="text/javascript">
-                                        function moveUrl() {
 
-                                            if(!$('#pw').val())
+                                        $('#pw').keydown(function () {
+                                            if (event.keyCode === 13) {
+                                                event.preventDefault();
+                                                $('#modify').click();
+                                            }
+                                        });
+
+                                        function moveModify() {
+                                            let password = $('#pw').val();
+
+                                            if (!$('#pw').val())
                                                 return false;
-                                            else{
-                                                
-                                                opener.location.replace="https://www.naver.com/";
+                                            else {
 
+                                                $.ajax({
+                                                    url: "http://localhost:3000/check/password", // API PASSWORD를 확인해주는 API주소!
+                                                    type: 'POST',
+                                                    dataType: 'JSON',
+                                                    data: { "password": password, "boardID": "<%=boardID%>", "page": "<%=page%>" }, // { "pw" : "입력한 passwod"}
+                                                    success: function (result) { // status code 2
+
+                                                        if (result.code == 1) {
+
+                                                            window.location.href = "/modify/<%=page%>/<%=boardID%>";
+                                                            return true;
+
+                                                        }else{
+
+                                                            alert('비밀번호가 틀렸습니다');
+                                                            return false;
+
+                                                        }
+
+                                                    },
+                                                    error: function (result) {
+                                                        alert('ajax error');
+                                                    }
+
+                                                });
                                             }
 
                                         }
@@ -177,10 +217,59 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
-                                    <input type="password" id="m" class="form-control" placeholder="암호">
+                                <form id="deleteForm" action="/delete/<%=boardID%>" method="POST">
+                                    <input type="password" id="deletePw" class="form-control" placeholder="암호">
                                     <br>
-                                    <input type="submit" class="btn btn-large btn-danger" id="delete" value="확인">
+                                    <input type="button" class="btn btn-large btn-danger" id="delete" onclick="return moveUrl()" value="확인">
+                                    <script type="text/javascript">
+                                        $('input[type=password]').keydown(() => {
+                                            if (event.keyCode === 13) {
+                                                event.preventDefault();
+                                                $('#delete').click();
+                                            }   
+                                        });
+
+                                        function moveUrl(){
+
+                                            if(!$('#deletePw').val())
+                                                return false;
+                                            else{
+                                                let password = $('#deletePw').val();
+
+                                                $.ajax({
+
+                                                    url: 'http://localhost:3000/check/password',
+                                                    type: 'POST',
+                                                    data: { "password": password, "boardID": "<%=boardID%>"},
+                                                    dataType: 'JSON',
+                                                    success: function(result){
+
+                                                        if(result.code == 1){
+
+                                                            alert('삭제되었습니다.');
+                                                            $('#deleteForm').submit();
+                                                            return true;
+
+                                                        }else{
+
+                                                            alert('비밀번호가 틀렸습니다.');
+                                                            return false;
+
+                                                        }
+
+                                                    },
+                                                    erroor: function(){
+
+                                                        alert('비밀번호가 틀렸습니다.');
+
+                                                    }
+
+                                                })
+
+                                            }
+
+                                        }
+                                    </script>
                                 </form>
                             </div>
                         </div>
@@ -221,8 +310,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"

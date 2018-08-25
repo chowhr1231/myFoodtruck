@@ -1,3 +1,5 @@
+const dbPool = require('./config/dbconfig');
+
 exports.checkValid = (user, pw, content) => {
 
     let userValid = 0;
@@ -20,5 +22,48 @@ exports.checkValid = (user, pw, content) => {
         contentValid = 0;
 
     return userValid&&pwValid&&contentValid;
+
+}
+
+exports.passwordValid = (req, res) => {
+
+    let {password, boardID} = req.body;
+    
+    dbPool.getConnection((err, conn)=>{
+
+        if(err){
+
+            conn.release();
+            console.log('DB Pool Error: ', err);
+            res.status(404);
+
+        }
+
+        let selectQuery = 'SELECT password FROM testboard WHERE boardID = ?;';
+
+        conn.query(selectQuery, [boardID], (err, queryResult)=>{
+
+            let code = 0;
+
+            if(queryResult[0].password == password)
+                code = 1;
+            else
+                code = 0;
+            
+            if(code == 1){
+
+                res.status(200);
+                res.json({"code": code});
+    
+            }else{
+
+                res.status(200);
+                res.json({"code": code});
+
+            }
+
+        });
+
+    });
 
 }
