@@ -12,10 +12,17 @@
     <!-- fontawesome ICON -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
-    
+
     <link rel="stylesheet" href="/stylesheets/coding.css">
 
     <title>수정 게시글</title>
+
+    <!-- JQurey&AJAX -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <!-- ckEditor CDN -->
+    <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js "></script>
 
 </head>
 
@@ -85,7 +92,7 @@
             <span class="lead">문의사항을 작성해주세요.</span>
         </h3>
         <hr>
-        <form action="/modify/<%=page%>/<%=boardID%>" method="POST">
+        <form>
             <div class="form-group row">
                 <div class="col-sm-1"></div>
                 <label for="title" class="col-sm-2 col-form-label font-weight-bold">제목</label>
@@ -100,23 +107,58 @@
                     <input type="text" class="form-control" name="name" id="name" value="<%=data[0].name%>">
                 </div>
             </div>
-                <div class="form-group row">
-                    <div class="col-sm-1"></div>
-                    <label for="password" class="col-sm-2 col-form-label font-weight-bold">비밀번호</label>
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control" name="password" id="password" value="<%=data[0].password%>" readonly>
-                    </div>
+            <div class="form-group row">
+                <div class="col-sm-1"></div>
+                <label for="password" class="col-sm-2 col-form-label font-weight-bold">비밀번호</label>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control" name="password" id="password" value="<%=data[0].password%>" readonly>
                 </div>
+            </div>
             <div class="form-group row">
                 <div class="col-sm-1"></div>
                 <label for="content" class="col-sm-2 col-form-label font-weight-bold">문의내용</label>
                 <div class="col-sm-6">
-                    <textarea class="form-control" name="contents" id="contents" rows="10"><%=data[0].contents%></textarea>
+                    <textarea name="editor1" id="editor1"><%- data[0].contents %></textarea>
+                    <script>
+                        CKEDITOR.replace('editor1', {
+                            filebrowserUploadUrl: '/upload',
+                        });
+                    </script>
                 </div>
             </div>
             <hr>
             <div class="text-center">
-                <button type="submit" class="btn btn-outline-info">확인</button>
+                <button type="button" class="btn btn-outline-info" onclick="modifyAjax()">확인</button>
+                <script type="text/javascript">
+                    function modifyAjax(){
+                        var contents = CKEDITOR.instances.editor1.getData();
+                        var title = $("#title").val();
+                        var name = $("#name").val();
+                        var password = $("#password").val();
+
+                        var data = {
+                            "title": title,
+                            "name": name,
+                            "password": password,
+                            "contents": contents
+                        }
+
+                        $.ajax({
+                            url: "http://localhost:3000/modify/<%=page%>/<%=boardID%>",
+                            type: "POST",
+                            data: data,
+                            dataType: 'JSON',
+                            success: function(result){
+                                console.log(result.msg);
+                                window.location.href="/board/<%=page%>/<%=boardID%>";
+                            },
+                            error: function(result){
+                                console.log(result);
+                            }
+                        });
+
+                    }
+                </script>
                 <a role="button" class="btn btn-outline-danger" href="/board/<%=page%>/<%=boardID%>">취소</a>
             </div>
         </form>
@@ -154,8 +196,6 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"

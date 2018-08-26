@@ -67,10 +67,10 @@ exports.boardList = (req, res) => {
 */
 exports.createBoard = (req, res) => {
 
-  const { name, pw, title, content } = req.body;
+  const { name, password, title, contents } = req.body;
 
   console.log(req.body);
-  if (checkValid(name.length, pw.length, content.length) == 1) {
+  if (checkValid(name.length, password.length, contents.length) == 1) {
 
     dbPool.getConnection((err, conn) => {
 
@@ -78,13 +78,17 @@ exports.createBoard = (req, res) => {
 
         conn.release();
         console.log('DB Pool Error');
-        res.send(404, 'DB Pool Error');
+        res.status(400);
+        res.json({
+          "msg": "DB Pool Error",
+          "code": 0
+        });
 
       }
 
       let curTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
 
-      let values = [name, title, pw, content, curTime];
+      let values = [name, title, password, contents, curTime];
       let sql = 'INSERT INTO testboard (`name`, `title`, `password`, `contents`, `createdate`) '
         + 'VALUES(?, ?, ?, ?, ?);'
 
@@ -96,20 +100,32 @@ exports.createBoard = (req, res) => {
 
           conn.release();
           console.log('SQL query Error');
-          res.send(404, 'SQL query Error');
+          res.status(400);
+          res.json({
+            "msg": "SQL Query Error",
+            "code": 0
+          });
 
         }
 
         res.status(200);
-        res.redirect('/board/1');
+        res.json({
+          "msg": "작성되었습니다.",
+          "code": 1
+        });
 
       });
 
     });
 
   }
-  else
-    res.send('Not Valid');
+  else {
+    res.status(400);
+    res.json({
+      "msg": "NOT Valid",
+      "code": 0
+    });
+  }
 
 }
 
@@ -170,9 +186,9 @@ exports.modifyView = (req, res) => {
   let boardId = req.params.boardID;
   let page = req.params.page;
 
-  dbPool.getConnection((err, conn)=>{
+  dbPool.getConnection((err, conn) => {
 
-    if(err){
+    if (err) {
 
       conn.release();
       console.log('DB Pool Error: ', err);
@@ -182,18 +198,18 @@ exports.modifyView = (req, res) => {
 
     let selectQuery = 'SELECT title, name, contents, password FROM testboard WHERE boardID = ?;';
 
-    conn.query(selectQuery, [boardId], (err, queryResult)=>{
+    conn.query(selectQuery, [boardId], (err, queryResult) => {
 
       conn.release();
 
-      if(err){
+      if (err) {
 
         console.log('Select Query Error: ', err);
         res.status(404).body('Select Query Error: ', err);
 
       }
-      
-      res.render('modify', {data: queryResult, page: page, boardID: boardId});
+
+      res.render('modify', { data: queryResult, page: page, boardID: boardId });
 
     });
 
@@ -201,15 +217,15 @@ exports.modifyView = (req, res) => {
 
 }
 
-exports.modify = (req, res)=>{
+exports.modify = (req, res) => {
 
-  let {title, name, password, contents} = req.body;
+  let { title, name, password, contents } = req.body;
   let boardID = req.params.boardID;
   let page = req.params.page;
 
-  dbPool.getConnection((err, conn)=>{
+  dbPool.getConnection((err, conn) => {
 
-    if(err){
+    if (err) {
 
       conn.release();
       console.log('DB Poll Error: ', err);
@@ -222,9 +238,9 @@ exports.modify = (req, res)=>{
     let curTime = moment().format('YYYY-MM-DD HH:mm:ss');
     let values = [title, name, password, contents, curTime, boardID];
 
-    conn.query(updateQuery, values, (err, queryResult)=>{
+    conn.query(updateQuery, values, (err, queryResult) => {
 
-      if(err){
+      if (err) {
 
         conn.release();
         console.log('Update Query Error: ', err);
@@ -234,7 +250,10 @@ exports.modify = (req, res)=>{
       }
 
       res.status(200);
-      res.redirect('/board/' + page + '/' + boardID);
+      res.json({
+        "msg": "수정됐습니다.",
+        "code": 1
+      })
 
     });
 
@@ -243,13 +262,13 @@ exports.modify = (req, res)=>{
 }
 
 //게시글 삭제 api
-exports.deleteBoard = (req, res)=>{
+exports.deleteBoard = (req, res) => {
 
   let boardID = req.params.boardID;
 
-  dbPool.getConnection((err, conn)=>{
+  dbPool.getConnection((err, conn) => {
 
-    if(err){
+    if (err) {
 
       conn.release();
       console.log('DB Pool Error: ', err);
@@ -258,14 +277,14 @@ exports.deleteBoard = (req, res)=>{
 
     }
 
-    
+
     console.log(boardID);
     let deleteQuery = 'DELETE FROM testboard WHERE boardID = ?;';
 
-    conn.query(deleteQuery, [boardID], (err, queryResult)=>{
+    conn.query(deleteQuery, [boardID], (err, queryResult) => {
 
       conn.release();
-      if(err){
+      if (err) {
 
         console.log('Query Error: ', err);
         res.status(404);

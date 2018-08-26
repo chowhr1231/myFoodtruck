@@ -1,75 +1,84 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8 ">
+    <meta name="viewport " content="width=device-width, initial-scale=1, shrink-to-fit=no ">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
+    <link rel="stylesheet " href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css
+        " integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm " crossorigin="anonymous ">
     <!-- fontawesome ICON -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-        crossorigin="anonymous">
-        
-    <link rel="stylesheet" href="/stylesheets/coding.css">
+    <link rel="stylesheet " href="https://use.fontawesome.com/releases/v5.2.0/css/all.css " integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ "
+        crossorigin="anonymous ">
+
+    <link rel="stylesheet " href="/stylesheets/coding.css ">
 
     <title>게시글 작성</title>
+
+    <!-- JQurey&AJAX -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <!-- ckEditor CDN -->
+    <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js "></script>
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="http://localhost:3000">붕붕이</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <div class="container-fluid ">
+            <a class="navbar-brand " href="http://localhost:3000 ">붕붕이</a>
+            <button class="navbar-toggler " type="button " data-toggle="collapse " data-target="#navbarSupportedContent
+        " aria-controls="navbarSupportedContent " aria-expanded="false " aria-label="Toggle navigation ">
+                <span class="navbar-toggler-icon "></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:3000">소개
-                            <span class="sr-only">(current)</span>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent ">
+                <ul class="navbar-nav mr-auto ">
+                    <li class="nav-item active ">
+                        <a class="nav-link " href="http://localhost:3000 ">소개
+                            <span class="sr-only ">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="instructor.html">개발자</a>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="instructor.html ">개발자</a>
                     </li>
-                    <li class=" nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">컨텐츠
-                            <span class="caret"></span>
+                    <li class=" nav-item dropdown ">
+                        <a href="# " class="nav-link dropdown-toggle " data-toggle="dropdown " id="navbarDropdown
+        " role="button " aria-haspopup="true " aria-expanded="false ">컨텐츠
+                            <span class="caret "></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown ">
                             <li>
-                                <a class="nav-link" href="#">위치</a>
+                                <a class="nav-link " href="# ">위치</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="#">리뷰</a>
+                                <a class="nav-link " href="# ">리뷰</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="/board/1">문의</a>
+                                <a class="nav-link " href="/board/1 ">문의</a>
                             </li>
                         </ul>
                     </li>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">검색</button>
+                    <form class="form-inline my-2 my-lg-0 ">
+                        <input class="form-control mr-sm-2 " type="search " placeholder="내용을 입력하세요
+        " aria-label="Search ">
+                        <button class="btn btn-outline-secondary my-2 my-sm-0 " type="submit ">검색</button>
                     </form>
                 </ul>
-                <ul class="navbar-nav nav-right">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navbarDropdownLogin" role="button" aria-haspopup="true"
-                            aria-expanded="false">접속하기
-                            <span class="caret"></span>
+                <ul class="navbar-nav nav-right ">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle " href="# " data-toggle="dropdown " id="navbarDropdownLogin
+        " role="button " aria-haspopup="true " aria-expanded="false ">접속하기
+                            <span class="caret "></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdownLogin ">
                             <li>
-                                <a class="nav-link disabled" href="#">로그인</a>
+                                <a class="nav-link disabled " href="# ">로그인</a>
                             </li>
                             <li>
-                                <a class="nav-link disabled" href="#">회원가입</a>
+                                <a class="nav-link disabled " href="# ">회원가입</a>
                             </li>
                         </ul>
                     </li>
@@ -80,76 +89,110 @@
 
     <!-- content 영역 -->
     <!-- 
-        알아가는 점 
-        1. form영역에서 class를 form-group을 써야한다
-    -->
-    <div class="container my-3">
+                        알아가는 점 
+                        1. form영역에서 class를 form-group을 써야한다
+                    -->
+    <div class="container my-3 ">
         <h3>게시글 작성&nbsp;
-            <span class="lead">문의사항을 작성해주세요.</span>
+            <span class="lead ">문의사항을 작성해주세요.</span>
         </h3>
         <hr>
-        <form action="/create" method="POST">
-            <div class="form-group row">
-                <div class="col-sm-1"></div>
-                <label for="user" class="col-sm-2 col-form-label font-weight-bold">제목</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="title" id="title" placeholder="제목">
+        <form>
+            <div class="form-group row ">
+                <div class="col-sm-1 "></div>
+                <label for="user " class="col-sm-2 col-form-label font-weight-bold ">제목</label>
+                <div class="col-sm-6 ">
+                    <input type="text " class="form-control" name="title" id="title" placeholder="제목 ">
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-sm-1"></div>
-                <label for="title" class="col-sm-2 col-form-label font-weight-bold">작성자</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="name" id="name" placeholder="작성자">
+            <div class="form-group row ">
+                <div class="col-sm-1 "></div>
+                <label for="title " class="col-sm-2 col-form-label font-weight-bold ">작성자</label>
+                <div class="col-sm-6 ">
+                    <input type="text " class="form-control " name="name " id="name" placeholder="작성자 ">
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-sm-1"></div>
-                <label for="password" class="col-sm-2 col-form-label font-weight-bold">비밀번호</label>
-                <div class="col-sm-6">
-                    <input type="password" class="form-control" name="pw" id="password" placeholder="비밀번호">
+            <div class="form-group row ">
+                <div class="col-sm-1 "></div>
+                <label for="password " class="col-sm-2 col-form-label font-weight-bold">비밀번호</label>
+                <div class="col-sm-6 ">
+                    <input type="password " class="form-control" name="pw" id="password" placeholder="비밀번호 ">
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-sm-1"></div>
-                <label for="content" class="col-sm-2 col-form-label font-weight-bold">문의내용</label>
-                <div class="col-sm-6">
-                    <textarea class="form-control" name="content" id="content" rows="10"></textarea>
+            <div class="form-group row ">
+                <div class="col-sm-1 "></div>
+                <label for="content " class="col-sm-2 col-form-label font-weight-bold">문의내용</label>
+                <div class="col-sm-6 ">
+                    <textarea name="editor1" id="editor1"></textarea>
+                    <script>
+                        CKEDITOR.replace('editor1', {
+                            filebrowserUploadUrl: '/upload',
+                        });
+                    </script>
                 </div>
             </div>
             <hr>
-            <div class="text-center">
-                <button type="submit" class="btn btn-outline-info">확인</button>
-                <a role="button" href="/board/1" class="btn btn-outline-danger">취소</a>
+            <div class="text-center ">
+                <button type="button" class="btn btn-outline-info" onclick="createAjax()">확인</button>
+                <script type="text/javascript">
+                    function createAjax() {
+                        var contents = CKEDITOR.instances.editor1.getData();
+                        var title = $("#title").val();
+                        var name = $("#name").val();
+                        var password = $("#password").val();
+
+                        var data = {
+                            "title": title,
+                            "name": name,
+                            "password": password,
+                            "contents": contents
+                        }
+                        
+                        $.ajax({
+                            url: "http://localhost:3000/create",
+                            type: "POST",
+                            data: data,
+                            dataType: 'JSON',
+                            success: function(result){
+                                alert(result.msg);
+                                window.location.href="/board/1";
+                            },
+                            error: function(result){
+                                console.log(result);
+                            }
+                        });
+                    }
+                </script>
+                <a role="button " href="/board/1 " class="btn btn-outline-danger ">취소</a>
             </div>
         </form>
     </div>
 
     <!--footer 영역-->
-    <footer class="container-fluid" style="background-color: #f8f9fa">
+    <footer class="container-fluid " style="background-color: #f8f9fa ">
         <br>
-        <div class="row">
-            <div class="col-lg-3" style="text-align: center">
+        <div class="row ">
+            <div class="col-lg-3 " style="text-align: center ">
                 <h6>Copyright &copy; 2018</h6>
                 <h6>송윤재 (Yoonjae Song)</h6>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 ">
                 <h5>대표자 소개</h5>
                 <p>아직 할줄 아는 것은 없습니다. 일단 Bootstrap으로 게시판을 만들어 푸드트럭관련된 프로젝트를 하나 만들려고 합니다.</p>
             </div>
-            <div class="col-lg-2">
-                <h6 style="text-align: center">SNS</h6>
-                <div class="list-group">
-                    <a href="https://www.facebook.com/" class="list-group-item">
-                        <i class="fab fa-facebook"></i>&nbsp;&nbsp;facebook</a>
-                    <a href="https://www.instagram.com/?hl=ko" class="list-group-item">
-                        <i class="fab fa-instagram"></i>&nbsp;&nbsp;Instargram</a>
-                    <a href="https://twitter.com/?lang=ko" class="list-group-item">
-                        <i class="fab fa-twitter-square"></i>&nbsp;&nbsp;twitter</a>
+            <div class="col-lg-2 ">
+                <h6 style="text-align: center ">SNS</h6>
+                <div class="list-group ">
+                    <a href="https://www.facebook.com/ " class="list-group-item ">
+                        <i class="fab fa-facebook "></i>&nbsp;&nbsp;facebook</a>
+                    <a href="https://www.instagram.com/?hl=ko " class="list-group-item ">
+                        <i class="fab fa-instagram "></i>&nbsp;&nbsp;Instargram</a>
+                    <a href="https://twitter.com/?lang=ko " class="list-group-item ">
+                        <i class="fab fa-twitter-square "></i>&nbsp;&nbsp;twitter</a>
                 </div>
             </div>
-            <div class="col-lg-2">
-                <h5 style="text-align: center">chowHR1231</h5>
+            <div class="col-lg-2 ">
+                <h5 style="text-align: center ">chowHR1231</h5>
             </div>
         </div>
         <br>
@@ -157,12 +200,10 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js
+        " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q " crossorigin="anonymous "></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl "
+        crossorigin="anonymous "></script>
 </body>
 
 </html>

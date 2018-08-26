@@ -92,14 +92,13 @@
                         <table class="table table-hover my-2">
                             <thead class="thead-dark">
                                 <tr class="text-center">
-                                    <th style="width: 5%;" class="text-left">No.</th>
-                                    <th style="width: 20%;">제목</th>
-                                    <th style="width: 35%;">내용</th>
-                                    <th style="width: 20%;">작성자</th>
+                                    <th style="width: 10%;" class="text-left">No.</th>
+                                    <th style="width: 40%;">제목</th>
+                                    <th style="width: 30%;">작성자</th>
                                     <th>작성일</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                                 <% var i = 8*(page-1) + 1; %>
                                     <% for(var key in data) {%>
                                         <% if(key == 7 || key == count-8*(page-1) -1 ){ %>
@@ -107,14 +106,11 @@
                                         <% } else { %>
                                         <tr>
                                         <% } %>
-                                            <td scope="row">
+                                            <td scope="row" class="text-left">
                                                 <%= i%>.</td>
                                             <td>
-                                                <%= data[key].title %>
-                                            </td>
-                                            <td>
                                                 <a style="color: black" href="/board/<%=page%>/<%=data[key].boardID%>">
-                                                    <%= data[key].contents %>
+                                                    <%= data[key].title %>
                                                 </a>
                                             </td>
                                             <td>
@@ -142,7 +138,7 @@
                                 <% } else { %>
                                 <%  endPoint = count/8; %>
                                 <% } %>
-                                <% for(var i=0; i<endPoint; i++) {%>
+                                <% for(var i=0; i < endPoint; i++) {%>
                                 <% if(i == page-1) { %>
                                 <li class="page-item disabled">
                                     <a class="page-link" href="/board/<%=i+1%>" style="color: black; background-color: gray;"><%= i+1 %></a>
