@@ -35,64 +35,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="http://localhost:3000">붕붕이</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:3000">소개
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="instructor.html">개발자</a>
-                    </li>
-                    <li class=" nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">컨텐츠
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="nav-link" href="#">위치</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="#">리뷰</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="/board/1">문의</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">검색</button>
-                    </form>
-                </ul>
-                <ul class="navbar-nav nav-right">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navbarDropdownLogin" role="button" aria-haspopup="true"
-                            aria-expanded="false">접속하기
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
-                            <li>
-                                <a class="nav-link disabled" href="#">로그인</a>
-                            </li>
-                            <li>
-                                <a class="nav-link disabled" href="#">회원가입</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <% include ./part/navigation.html %>
     <!-- 컨텐츠 영역 -->
     <!--
         알아가는 점

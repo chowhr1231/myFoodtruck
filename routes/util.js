@@ -67,3 +67,9 @@ exports.passwordValid = (req, res) => {
     });
 
 }
+
+exports.googleMapView = (req, res) =>{
+
+    res.render('googleMap.html');
+
+}
