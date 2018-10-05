@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { boardList, createPage, createBoard, boardShow, modifyView, modify, deleteBoard, test } = require('./routes/CRUD/users');
-const {passwordValid, googleMapView} = require('./routes/util');
+const { boardList, createPage, createBoard, boardShow, modifyView, modify, deleteBoard, googleMapView, googleMap} = require('./routes/CRUD/users');
+const {passwordValid} = require('./routes/util');
+const {test} = require('./routes/test');
 
 router.get('/board/:page', boardList);
 router.get('/board/:page/:boardID', boardShow);
@@ -16,8 +17,8 @@ router.post('/delete/:boardID', deleteBoard);
 
 router.post('/check/password', passwordValid);
 
-router.get('/boardMap', googleMapView);
-router.post('/test', test);
+router.get('/foodtruckMap', googleMapView);
+router.post('/foodtruckMap', googleMap);
 
 
 module.exports = router

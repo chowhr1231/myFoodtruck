@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <!-- fontawesome ICON -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+
+  <link rel="stylesheet" href="../stylesheets/coding.css">
+  <link rel="stylesheet" href="stylesheets/coding.css">
+
+  <title>Init Page</title>
+</head>
+
+<body>
+  <style type="text/css">
+    .jumbotron {
+      background-image: url(https://assets.entrepreneur.com/content/3x2/2000/20150708172005-coding-working-workspace-apple-macintosh.jpeg?width=700&crop=2:1);
+      background-size: cover;
+      text-shadow: black 0.2em 0.2em 0.2em;
+      color: white;
+    }
+  </style>
+  <% include ./part/navigation %>
+    <!--
+    가장 기초적은 기본 테마
+    <알아가는 것>
+    1. button관련 class
+    2. role: 태그 속성을 role로 속성만 바꿔줄 수 있다. 이 기능은 부트스트랩기능이 아닌 html쪽 기능
+  -->
+  <div class="container mt-3">
+    <div class="jumbotron">
+      <h1 class="text-center">붕붕이를 소개합니다.</h1>
+      <p class="text-center">푸드트럭 관련 위치와 리뷰를 제공하는 홈페이지며 문의기능인 게시판도 있습니다.</p>
+      <p class="text-center">
+        <a class="btn btn-outline-secondary btn-lg" style="color: white;" href="/foodtruckMap" role="button">위치보기</a>
+      </p>
+    </div>
+    <hr>
+  </div>
+  <!--footer 영역-->
+  <% include ./part/footer.html %>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

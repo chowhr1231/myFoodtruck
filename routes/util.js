@@ -1,15 +1,21 @@
 const dbPool = require('./config/dbconfig');
 
-exports.checkValid = (user, pw, content) => {
+exports.checkValid = (user, title, pw, content) => {
 
     let userValid = 0;
+    let titleValid = 0
     let pwValid = 0;
     let contentValid = 0;
 
-    if (user > 0 && user < 31)
+    if (user > 0 && user < 21)
         userValid = 1;
     else
         userValid = 0;
+
+    if(title > 0 && title <50)
+        titleValid = 1;
+    else
+        titleValid = 0;
 
     if (pw > 0 && pw < 11)
         pwValid = 1;
@@ -21,7 +27,7 @@ exports.checkValid = (user, pw, content) => {
     else
         contentValid = 0;
 
-    return userValid&&pwValid&&contentValid;
+    return userValid&&pwValid&&contentValid&&titleValid;
 
 }
 
@@ -68,8 +74,3 @@ exports.passwordValid = (req, res) => {
 
 }
 
-exports.googleMapView = (req, res) =>{
-
-    res.render('googleMap.html');
-
-}

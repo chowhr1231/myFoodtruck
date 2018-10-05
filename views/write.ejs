@@ -24,73 +24,10 @@
     <!-- ckEditor CDN -->
     <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#nav1').load('./part/navigation.html');
-        });
-    </script>
-
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="http://localhost:3000">붕붕이</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:3000">소개
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="instructor.html">개발자</a>
-                    </li>
-                    <li class=" nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">컨텐츠
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="nav-link" href="#">위치</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="#">리뷰</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="/board/1">문의</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">검색</button>
-                    </form>
-                </ul>
-                <ul class="navbar-nav nav-right">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navbarDropdownLogin" role="button" aria-haspopup="true"
-                            aria-expanded="false">접속하기
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
-                            <li>
-                                <a class="nav-link disabled" href="#">로그인</a>
-                            </li>
-                            <li>
-                                <a class="nav-link disabled" href="#">회원가입</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <% include ./part/navigation %>
 
     <!-- content 영역 -->
     <!-- 
@@ -174,35 +111,8 @@
     </div>
 
     <!--footer 영역-->
-    <footer class="container-fluid" style="background-color: #f8f9fa">
-        <br>
-        <div class="row">
-            <div class="col-lg-3" style="text-align: center">
-                <h6>Copyright &copy; 2018</h6>
-                <h6>송윤재 (Yoonjae Song)</h6>
-            </div>
-            <div class="col-lg-4">
-                <h5>대표자 소개</h5>
-                <p>아직 할줄 아는 것은 없습니다. 일단 Bootstrap으로 게시판을 만들어 푸드트럭관련된 프로젝트를 하나 만들려고 합니다.</p>
-            </div>
-            <div class="col-lg-2">
-                <h6 style="text-align: center">SNS</h6>
-                <div class="list-group">
-                    <a href="https://www.facebook.com/" class="list-group-item">
-                        <i class="fab fa-facebook"></i>&nbsp;&nbsp;facebook</a>
-                    <a href="https://www.instagram.com/?hl=ko" class="list-group-item">
-                        <i class="fab fa-instagram"></i>&nbsp;&nbsp;Instargram</a>
-                    <a href="https://twitter.com/?lang=ko" class="list-group-item">
-                        <i class="fab fa-twitter-square"></i>&nbsp;&nbsp;twitter</a>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <h5 style="text-align: center">chowHR1231</h5>
-            </div>
-        </div>
-        <br>
-    </footer>
-
+    <% include ./part/footer.html %>
+   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js

@@ -9,31 +9,19 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-
     <!-- fontawesome ICON -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="dist/css//codingBooster.css">
+    <link rel="stylesheet" href="../stylesheets/coding.css">
 
-    <link rel="stylesheet" href="/stylesheets/coding.css">
-
-    <title>푸드트럭 지도</title>
-
-    <!-- Jquery&AJAX -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-
-
-
+    <title>youtube_BootstrapStudy</title>
 </head>
 
 <body>
-    <!-- 내비게이션 바 영역 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="http://localhost:3000">붕붕이</a>
+            <a class="navbar-brand" href="#">붕붕이</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,27 +29,27 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:3000">소개
+                        <a class="nav-link" href="#">소개
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">개발자</a>
+                        <a class="nav-link" href="instructor.html">개발자</a>
                     </li>
                     <li class=" nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdown" role="button" aria-haspopup="true"
+                        <a href="#" class="nav-link active dropdown-toggle" data-toggle="dropdown" id="navbarDropdown" role="button" aria-haspopup="true"
                             aria-expanded="false">컨텐츠
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="nav-link active" href="#">위치</a>
+                                <a class="nav-link" href="#">위치</a>
                             </li>
                             <li>
                                 <a class="nav-link" href="#">리뷰</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="/board/1">문의</a>
+                                <a class="nav-link" href="boardList.html">문의</a>
                             </li>
                         </ul>
                     </li>
@@ -90,63 +78,42 @@
         </div>
     </nav>
 
-    <!-- Map 영역 -->
-    <div class="container">
-        <div class="card my-2">
-            <div class="card-header">
-                <h4 class="font-weight-bold text-center">푸드트럭 지도</h4>
-            </div>
-            <div class="card-body">
-                <div class="container">
-                    <div id="map-canvas" style="width: 100%; height: 570px"></div>
-                    <script src="//maps.googleapis.com/maps/api/js" type="text/javascript"></script>
-                    <script type="text/javascript">
-                        function initialize() {
-                            var mapLocation = new google.maps.LatLng('37.550251', '127.073203'); // 지도에서 가운데로 위치할 위도와 경도
-                            var markLocation = new google.maps.LatLng('37.523715', '127.057406'); // 마커가 위치할 위도와 경도
-
-                            var mapOptions = {
-                                center: mapLocation, // 지도에서 가운데로 위치할 위도와 경도(변수)
-                                zoom: 15, // 지도 zoom단계
-                                mapTypeId: google.maps.MapTypeId.ROADMAP
-                            };
-                            var map = new google.maps.Map(document.getElementById("map-canvas"), // id: map-canvas, body에 있는 div태그의 id와 같아야 함
-                                mapOptions);
-
-                            var size_x = 60; // 마커로 사용할 이미지의 가로 크기
-                            var size_y = 60; // 마커로 사용할 이미지의 세로 크기
-
-                            // 마커로 사용할 이미지 주소
-                            var image = new google.maps.MarkerImage('http://www.larva.re.kr/home/img/boximage3.png',
-                                new google.maps.Size(size_x, size_y),
-                                new google.maps.Size(size_x, size_y));
-
-                            var marker;
-                            marker = new google.maps.Marker({
-                                position: markLocation, // 마커가 위치할 위도와 경도(변수)
-                                map: map,
-                                icon: image, // 마커로 사용할 이미지(변수)
-                                //             info: '말풍선 안에 들어갈 내용',
-                                title: '서대전네거리역이지롱~' // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
-                            });
-
-                            var content = "우리 집"; // 말풍선 안에 들어갈 내용
-
-                            // 마커를 클릭했을 때의 이벤트. 말풍선 뿅~
-                            var infowindow = new google.maps.InfoWindow({ content: content });
-
-                            google.maps.event.addListener(marker, "click", function () {
-                                infowindow.open(map, marker);
-                            });
-
-                        }
-                        google.maps.event.addDomListener(window, 'load', initialize);
-                    </script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUQXfiTvrzTe0QZjhwMBHtpqI7DVfOnlk&callback=initMap" async
-                        defer></script>
+    <!-- content 영역 -->
+    <div class="container my-3">
+        <h3>게시글 수정&nbsp;
+            <span class="lead">문의사항을 작성해주세요.</span>
+        </h3>
+        <hr>
+        <form>
+            <div class="form-group row">
+                <div class="col-sm-1"></div>
+                <label for="user" class="col-sm-2 col-form-label font-weight-bold">작성자</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="user" placeholder="작성자">
                 </div>
             </div>
-        </div>
+            <fieldset disabled>
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <label for="password" class="col-sm-2 col-form-label font-weight-bold">비밀번호</label>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" id="password" value="1234">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <div class="col-sm-1"></div>
+                <label for="content" class="col-sm-2 col-form-label font-weight-bold">문의내용</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="content" rows="10"></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-info">확인</button>
+                <button type="submit" class="btn btn-outline-danger">취소</button>
+            </div>
+        </form>
     </div>
 
     <!--footer 영역-->
@@ -181,6 +148,8 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"

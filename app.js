@@ -25,7 +25,7 @@ app.use(express.static('public'));
 app.use('/', Log);
 app.get('/', (req, res)=>{
 
-  res.render('index.html');
+  res.render('index', {code: 0});
 
 });
 app.use('/', router);

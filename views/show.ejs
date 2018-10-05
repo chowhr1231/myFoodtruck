@@ -35,222 +35,201 @@
 </head>
 
 <body>
-    <% include ./part/navigation.html %>
+    <% include ./part/navigation %>
     <!-- 컨텐츠 영역 -->
     <!--
-        알아가는 점
-        1. button을 a태그처럼 사용하고 싶으면 a태그에 class를 btn으로 하면 된다.
-        (참고) 부트스트랩이 아닐경우 input태크로 이용해야 한다.
-        ex) input type=button value="" onClick="location.href=''" 이런 식으로
+    알아가는 점
+    1. button을 a태그처럼 사용하고 싶으면 a태그에 class를 btn으로 하면 된다.
+    (참고) 부트스트랩이 아닐경우 input태크로 이용해야 한다.
+    ex) input type=button value="" onClick="location.href=''" 이런 식으로
     -->
     <div class="container my-3">
-        <h3 class="my-3">게시글</h3>
-        <hr>
-        <form>
-            <div class="form-group row">
-                <label for="user" class="col-sm-2 font-weight-bold">제목</label>
-                <div class="col-sm-6">
-                    <label>
-                        <%=data[0].title%>
-                    </label>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="user" class="col-sm-2 font-weight-bold">작성자</label>
-                <div class="col-sm-6">
-                    <label>
-                        <%=data[0].name%>
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="content" class="col-sm-2 font-weight-bold">문의내용</label>
-                <div class="col-sm-6">
-                    <label>
-                        <%-data[0].contents%>
-                    </label>
-                </div>
-
-            </div>
+            <h3 class="my-3">게시글</h3>
             <hr>
-            <div class="text-center">
-                <a class="btn btn-outline-secondary" href="../<%=page%>">목록보기</a>
-                <button type="button" class="btn btn-outline-info float-right mx-1" data-toggle="modal" data-target="#modalModify">수정하기</button>
-                <!-- modify modal -->
-                <div class="modal fade" id="modalModify" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalDeleteLabel">게시글을 수정합니다.</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form onsubmit="return false">
-                                    <input type="password" id="pw" class="form-control" placeholder="암호">
-                                    <br>
-                                    <button type="button" class="btn btn-large btn-danger" id="modify" onclick="return moveModify()" value="확인">확인</button>
-                                    <script type="text/javascript">
-
-                                        $('#pw').keydown(function () {
-                                            if (event.keyCode === 13) {
-                                                event.preventDefault();
-                                                $('#modify').click();
-                                            }
-                                        });
-
-                                        function moveModify() {
-                                            let password = $('#pw').val();
-
-                                            if (!$('#pw').val())
-                                                return false;
-                                            else {
-
-                                                $.ajax({
-                                                    url: "http://localhost:3000/check/password", // API PASSWORD를 확인해주는 API주소!
-                                                    type: 'POST',
-                                                    dataType: 'JSON',
-                                                    data: { "password": password, "boardID": "<%=boardID%>", "page": "<%=page%>" }, // { "pw" : "입력한 passwod"}
-                                                    success: function (result) { // status code 2
-
-                                                        if (result.code == 1) {
-
-                                                            window.location.href = "/modify/<%=page%>/<%=boardID%>";
-                                                            return true;
-
-                                                        }else{
-
-                                                            alert('비밀번호가 틀렸습니다');
-                                                            return false;
-
-                                                        }
-
-                                                    },
-                                                    error: function (result) {
-                                                        alert('ajax error');
-                                                    }
-
-                                                });
-                                            }
-
-                                        }
-                                    </script>
-                                </form>
-                            </div>
-                        </div>
+            <form>
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <label for="user" class="col-sm-2 font-weight-bold">제목</label>
+                    <div class="col-sm-6">
+                        <label>
+                            <%=data[0].title%>
+                        </label>
                     </div>
                 </div>
-                <!-- button triger modal -->
-                <!-- 
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <label for="user" class="col-sm-2 font-weight-bold">작성자</label>
+                    <div class="col-sm-6">
+                        <label>
+                            <%=data[0].name%>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <label for="content" class="col-sm-2 font-weight-bold">문의내용</label>
+                    <div class="col-sm-7" style="word-wrap:normal;">
+                        <label>
+                            <%-data[0].contents%>
+                        </label>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="text-center d-flex justify-content-between">
+                    <div style="width: 86.17px"></div>
+                    <a class="btn btn-outline-secondary" href="../<%=page%>">목록보기</a>
+                    <div>
+                        <button type="button" class="btn btn-outline-info float-right mx-1" data-toggle="modal" data-target="#modalModify">수정하기</button>
+
+                        <!-- modify modal -->
+                        <div class="modal fade" id="modalModify" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalDeleteLabel">게시글을 수정합니다.</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form onsubmit="return false">
+                                            <input type="password" id="pw" class="form-control" placeholder="암호">
+                                            <br>
+                                            <button type="button" class="btn btn-large btn-danger" id="modify" onclick="return moveModify()" value="확인">확인</button>
+                                            <script type="text/javascript">
+
+                                                $('#pw').keydown(function () {
+                                                    if (event.keyCode === 13) {
+                                                        event.preventDefault();
+                                                        $('#modify').click();
+                                                    }
+                                                });
+
+                                                function moveModify() {
+                                                    let password = $('#pw').val();
+
+                                                    if (!$('#pw').val())
+                                                        return false;
+                                                    else {
+
+                                                        $.ajax({
+                                                            url: "http://localhost:3000/check/password", // API PASSWORD를 확인해주는 API주소!
+                                                            type: 'POST',
+                                                            dataType: 'JSON',
+                                                            data: { "password": password, "boardID": "<%=boardID%>", "page": "<%=page%>" }, // { "pw" : "입력한 passwod"}
+                                                            success: function (result) { // status code 2
+
+                                                                if (result.code == 1) {
+
+                                                                    window.location.href = "/modify/<%=page%>/<%=boardID%>";
+                                                                    return true;
+
+                                                                } else {
+
+                                                                    alert('비밀번호가 틀렸습니다');
+                                                                    return false;
+
+                                                                }
+
+                                                            },
+                                                            error: function (result) {
+                                                                alert('ajax error');
+                                                            }
+
+                                                        });
+                                                    }
+
+                                                }
+                                            </script>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- button triger modal -->
+                        <!-- 
                     어려웠던 점: modal이 계속 바로 닫힘 현상이 있었는데 button의 type='button'을 안 해줘서 발생했다.
                     원인: button태그가 브라우저마다 default값이 다르기 때문이다. reference에서도 button태그는 항상 type을 명시하라고 함.
                         type이 button, request, submit이 있다.
-                 -->
-                <button type="button" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#modalDelete" id="mod">삭제하기</button>
+                    -->
+                        <button type="button" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#modalDelete" id="mod">삭제하기</button>
+                    </div>
+                    <!-- modal 영역 -->
+                    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalDeleteLabel">게시글을 삭제합니다.</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="deleteForm" action="/delete/<%=boardID%>" method="POST">
+                                        <input type="password" id="deletePw" class="form-control" placeholder="암호">
+                                        <br>
+                                        <input type="button" class="btn btn-large btn-danger" id="delete" onclick="return moveUrl()" value="확인">
+                                        <script type="text/javascript">
+                                            $('input[type=password]').keydown(() => {
+                                                if (event.keyCode === 13) {
+                                                    event.preventDefault();
+                                                    $('#delete').click();
+                                                }
+                                            });
 
-                <!-- modal 영역 -->
-                <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalDeleteLabel">게시글을 삭제합니다.</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="deleteForm" action="/delete/<%=boardID%>" method="POST">
-                                    <input type="password" id="deletePw" class="form-control" placeholder="암호">
-                                    <br>
-                                    <input type="button" class="btn btn-large btn-danger" id="delete" onclick="return moveUrl()" value="확인">
-                                    <script type="text/javascript">
-                                        $('input[type=password]').keydown(() => {
-                                            if (event.keyCode === 13) {
-                                                event.preventDefault();
-                                                $('#delete').click();
-                                            }   
-                                        });
+                                            function moveUrl() {
 
-                                        function moveUrl(){
+                                                if (!$('#deletePw').val())
+                                                    return false;
+                                                else {
+                                                    let password = $('#deletePw').val();
 
-                                            if(!$('#deletePw').val())
-                                                return false;
-                                            else{
-                                                let password = $('#deletePw').val();
+                                                    $.ajax({
 
-                                                $.ajax({
+                                                        url: 'http://localhost:3000/check/password',
+                                                        type: 'POST',
+                                                        data: { "password": password, "boardID": "<%=boardID%>" },
+                                                        dataType: 'JSON',
+                                                        success: function (result) {
 
-                                                    url: 'http://localhost:3000/check/password',
-                                                    type: 'POST',
-                                                    data: { "password": password, "boardID": "<%=boardID%>"},
-                                                    dataType: 'JSON',
-                                                    success: function(result){
+                                                            if (result.code == 1) {
 
-                                                        if(result.code == 1){
+                                                                alert('삭제되었습니다.');
+                                                                $('#deleteForm').submit();
+                                                                return true;
 
-                                                            alert('삭제되었습니다.');
-                                                            $('#deleteForm').submit();
-                                                            return true;
+                                                            } else {
 
-                                                        }else{
+                                                                alert('비밀번호가 틀렸습니다.');
+                                                                return false;
+
+                                                            }
+
+                                                        },
+                                                        erroor: function () {
 
                                                             alert('비밀번호가 틀렸습니다.');
-                                                            return false;
 
                                                         }
 
-                                                    },
-                                                    erroor: function(){
+                                                    })
 
-                                                        alert('비밀번호가 틀렸습니다.');
-
-                                                    }
-
-                                                })
+                                                }
 
                                             }
-
-                                        }
-                                    </script>
-                                </form>
+                                        </script>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
     </div>
-    <!--footer 영역-->
-    <footer class="container-fluid" style="background-color: #f8f9fa">
-        <br>
-        <div class="row">
-            <div class="col-lg-3" style="text-align: center">
-                <h6>Copyright &copy; 2018</h6>
-                <h6>송윤재 (Yoonjae Song)</h6>
-            </div>
-            <div class="col-lg-4">
-                <h5>대표자 소개</h5>
-                <p>아직 할줄 아는 것은 없습니다. 일단 Bootstrap으로 게시판을 만들어 푸드트럭관련된 프로젝트를 하나 만들려고 합니다.</p>
-            </div>
-            <div class="col-lg-2">
-                <h6 style="text-align: center">SNS</h6>
-                <div class="list-group">
-                    <a href="https://www.facebook.com/" class="list-group-item">
-                        <i class="fab fa-facebook"></i>&nbsp;&nbsp;facebook</a>
-                    <a href="https://www.instagram.com/?hl=ko" class="list-group-item">
-                        <i class="fab fa-instagram"></i>&nbsp;&nbsp;Instargram</a>
-                    <a href="https://twitter.com/?lang=ko" class="list-group-item">
-                        <i class="fab fa-twitter-square"></i>&nbsp;&nbsp;twitter</a>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <h5 style="text-align: center">chowHR1231</h5>
-            </div>
-        </div>
-        <br>
-    </footer>
+        <!--footer 영역-->
+    <% include ./part/footer.html %>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

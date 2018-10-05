@@ -1,6 +1,8 @@
 const moment = require('moment');
+const request = require('request');
 const dbPool = require('../config/dbconfig');
 const { checkValid } = require('../util');
+const {test, key} = require('../test');
 
 //게시판 api
 exports.boardList = (req, res) => {
@@ -49,7 +51,7 @@ exports.boardList = (req, res) => {
 
         res.status(200);
         //queryResult-DB에서 가져온 정보 page-url에서 받아온 정보 count-DB에 있는 게시글 개수
-        res.render('boardList', { data: queryResult, page: page, count: count });
+        res.render('boardList', { data: queryResult, page: page, count: count, code: 3 });
 
       });
 
@@ -69,8 +71,7 @@ exports.createBoard = (req, res) => {
 
   const { name, password, title, contents } = req.body;
 
-  console.log(req.body);
-  if (checkValid(name.length, password.length, contents.length) == 1) {
+  if (checkValid(name.length, title.length, password.length, contents.length) == 1) {
 
     dbPool.getConnection((err, conn) => {
 
@@ -120,7 +121,7 @@ exports.createBoard = (req, res) => {
 
   }
   else {
-    res.status(400);
+    res.status(200);
     res.json({
       "msg": "NOT Valid",
       "code": 0
@@ -131,16 +132,8 @@ exports.createBoard = (req, res) => {
 
 exports.createPage = (req, res) => {
 
-  res.render('write.html');
+  res.render('write', {code: 3});
 
-}
-
-exports.test = (req, res) => {
-  console.log(req.body);
-  console.log(req.body.pw + '/' + req.body.boardID);
-  console.log("call")
-  res.status(200);
-  res.send('call');
 }
 
 //게시글 api
@@ -172,7 +165,7 @@ exports.boardShow = (req, res) => {
 
       }
 
-      res.render('show', { data: result, page: page, boardID: boardId });
+      res.render('show', { data: result, page: page, boardID: boardId, code: 3 });
 
     });
 
@@ -209,7 +202,7 @@ exports.modifyView = (req, res) => {
 
       }
 
-      res.render('modify', { data: queryResult, page: page, boardID: boardId });
+      res.render('modify', { data: queryResult, page: page, boardID: boardId, code: 3 });
 
     });
 
@@ -221,44 +214,48 @@ exports.modify = (req, res) => {
 
   let { title, name, password, contents } = req.body;
   let boardID = req.params.boardID;
-  let page = req.params.page;
 
-  dbPool.getConnection((err, conn) => {
-
-    if (err) {
-
-      conn.release();
-      console.log('DB Poll Error: ', err);
-      res.status(404);
-      res.send('DB Pool Error: ', err);
-
-    }
-
-    let updateQuery = 'UPDATE testboard SET title=?, name=?, password=?, contents=?, createdate=? WHERE boardID = ?;'
-    let curTime = moment().format('YYYY-MM-DD HH:mm:ss');
-    let values = [title, name, password, contents, curTime, boardID];
-
-    conn.query(updateQuery, values, (err, queryResult) => {
+  if(checkValid(name.length, title.length, password.length, contents.length) == 1){
+    dbPool.getConnection((err, conn) => {
 
       if (err) {
 
         conn.release();
-        console.log('Update Query Error: ', err);
+        console.log('DB Poll Error: ', err);
         res.status(404);
-        res.send('Update Query Error: ', err);
+        res.send('DB Pool Error: ', err);
 
       }
 
-      res.status(200);
-      res.json({
-        "msg": "수정됐습니다.",
-        "code": 1
-      })
+      let updateQuery = 'UPDATE testboard SET title=?, name=?, password=?, contents=?, createdate=? WHERE boardID = ?;'
+      let curTime = moment().format('YYYY-MM-DD HH:mm:ss');
+      let values = [title, name, password, contents, curTime, boardID];
+
+      conn.query(updateQuery, values, (err, queryResult) => {
+
+        if (err) {
+
+          conn.release();
+          console.log('Update Query Error: ', err);
+          res.status(404).send('Update Query Error: ' + err);
+
+        }
+
+        res.status(200);
+        res.json({
+          "msg": "수정됐습니다.",
+          "code": 1
+        })
+
+      });
 
     });
-
-  });
-
+  }else{
+    res.status(404).json({
+      "msg": "Not Valid",
+      "code": 0
+    });
+  }
 }
 
 //게시글 삭제 api
@@ -297,6 +294,25 @@ exports.deleteBoard = (req, res) => {
 
     });
 
+  });
+
+}
+
+//Google Map View api
+exports.googleMapView = async (req, res) =>{
+  
+  res.status(200);
+  res.render('googleMap', {code: 1});
+
+}
+
+exports.googleMap = async(req, res)=>{
+
+  let data = await test();
+  
+  res.status(200).json({
+    "msg": "Success",
+    "data": data
   });
 
 }

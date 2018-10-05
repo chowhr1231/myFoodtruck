@@ -27,179 +27,95 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="http://localhost:3000">붕붕이</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">소개
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">개발자</a>
-                    </li>
-                    <li class=" nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">컨텐츠
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="nav-link" href="#">위치</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="#">리뷰</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="/board/1">문의</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">검색</button>
-                    </form>
-                </ul>
-                <ul class="navbar-nav nav-right">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navbarDropdownLogin" role="button" aria-haspopup="true"
-                            aria-expanded="false">접속하기
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
-                            <li>
-                                <a class="nav-link disabled" href="#">로그인</a>
-                            </li>
-                            <li>
-                                <a class="nav-link disabled" href="#">회원가입</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <% include ./part/navigation %>
 
-    <!-- content 영역 -->
-    <div class="container my-3">
-        <h3>게시글 수정&nbsp;
-            <span class="lead">문의사항을 작성해주세요.</span>
-        </h3>
-        <hr>
-        <form>
-            <div class="form-group row">
-                <div class="col-sm-1"></div>
-                <label for="title" class="col-sm-2 col-form-label font-weight-bold">제목</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="title" id="title" value="<%=data[0].title%>">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-1"></div>
-                <label for="name" class="col-sm-2 col-form-label font-weight-bold">작성자</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="name" id="name" value="<%=data[0].name%>">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-1"></div>
-                <label for="password" class="col-sm-2 col-form-label font-weight-bold">비밀번호</label>
-                <div class="col-sm-6">
-                    <input type="password" class="form-control" name="password" id="password" value="<%=data[0].password%>" readonly>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-1"></div>
-                <label for="content" class="col-sm-2 col-form-label font-weight-bold">문의내용</label>
-                <div class="col-sm-6">
-                    <textarea name="editor1" id="editor1"><%- data[0].contents %></textarea>
-                    <script>
-                        CKEDITOR.replace('editor1', {
-                            filebrowserUploadUrl: '/upload',
-                        });
-                    </script>
-                </div>
-            </div>
+        <!-- content 영역 -->
+        <div class="container my-3">
+            <h3>게시글 수정&nbsp;
+                <span class="lead">문의사항을 작성해주세요.</span>
+            </h3>
             <hr>
-            <div class="text-center">
-                <button type="button" class="btn btn-outline-info" onclick="modifyAjax()">확인</button>
-                <script type="text/javascript">
-                    function modifyAjax(){
-                        var contents = CKEDITOR.instances.editor1.getData();
-                        var title = $("#title").val();
-                        var name = $("#name").val();
-                        var password = $("#password").val();
-
-                        var data = {
-                            "title": title,
-                            "name": name,
-                            "password": password,
-                            "contents": contents
-                        }
-
-                        $.ajax({
-                            url: "http://localhost:3000/modify/<%=page%>/<%=boardID%>",
-                            type: "POST",
-                            data: data,
-                            dataType: 'JSON',
-                            success: function(result){
-                                console.log(result.msg);
-                                window.location.href="/board/<%=page%>/<%=boardID%>";
-                            },
-                            error: function(result){
-                                console.log(result);
-                            }
-                        });
-
-                    }
-                </script>
-                <a role="button" class="btn btn-outline-danger" href="/board/<%=page%>/<%=boardID%>">취소</a>
-            </div>
-        </form>
-    </div>
-
-    <!--footer 영역-->
-    <footer class="container-fluid" style="background-color: #f8f9fa">
-        <br>
-        <div class="row">
-            <div class="col-lg-3" style="text-align: center">
-                <h6>Copyright &copy; 2018</h6>
-                <h6>송윤재 (Yoonjae Song)</h6>
-            </div>
-            <div class="col-lg-4">
-                <h5>대표자 소개</h5>
-                <p>아직 할줄 아는 것은 없습니다. 일단 Bootstrap으로 게시판을 만들어 푸드트럭관련된 프로젝트를 하나 만들려고 합니다.</p>
-            </div>
-            <div class="col-lg-2">
-                <h6 style="text-align: center">SNS</h6>
-                <div class="list-group">
-                    <a href="https://www.facebook.com/" class="list-group-item">
-                        <i class="fab fa-facebook"></i>&nbsp;&nbsp;facebook</a>
-                    <a href="https://www.instagram.com/?hl=ko" class="list-group-item">
-                        <i class="fab fa-instagram"></i>&nbsp;&nbsp;Instargram</a>
-                    <a href="https://twitter.com/?lang=ko" class="list-group-item">
-                        <i class="fab fa-twitter-square"></i>&nbsp;&nbsp;twitter</a>
+            <form>
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <label for="title" class="col-sm-2 col-form-label font-weight-bold">제목</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="title" id="title" value="<%=data[0].title%>">
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-2">
-                <h5 style="text-align: center">chowHR1231</h5>
-            </div>
-        </div>
-        <br>
-    </footer>
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <label for="name" class="col-sm-2 col-form-label font-weight-bold">작성자</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="name" id="name" value="<%=data[0].name%>">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <label for="password" class="col-sm-2 col-form-label font-weight-bold">비밀번호</label>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" name="password" id="password" value="<%=data[0].password%>" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <label for="content" class="col-sm-2 col-form-label font-weight-bold">문의내용</label>
+                    <div class="col-sm-6">
+                        <textarea name="editor1" id="editor1"><%- data[0].contents %></textarea>
+                        <script>
+                            CKEDITOR.replace('editor1', {
+                                filebrowserUploadUrl: '/upload',
+                            });
+                        </script>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <button type="button" class="btn btn-outline-info" onclick="modifyAjax()">확인</button>
+                    <script type="text/javascript">
+                        function modifyAjax() {
+                            var contents = CKEDITOR.instances.editor1.getData();
+                            var title = $("#title").val();
+                            var name = $("#name").val();
+                            var password = $("#password").val();
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+                            var data = {
+                                "title": title,
+                                "name": name,
+                                "password": password,
+                                "contents": contents
+                            }
+
+                            $.ajax({
+                                url: "http://localhost:3000/modify/<%=page%>/<%=boardID%>",
+                                type: "POST",
+                                data: data,
+                                dataType: 'JSON',
+                                success: function (result) {
+                                    console.log(result.msg);
+                                    window.location.href = "/board/<%=page%>/<%=boardID%>";
+                                },
+                                error: function (result) {
+                                    console.log(result);
+                                }
+                            });
+
+                        }
+                    </script>
+                    <a role="button" class="btn btn-outline-danger" href="/board/<%=page%>/<%=boardID%>">취소</a>
+                </div>
+            </form>
+        </div>
+
+        <!--footer 영역-->
+        <% include ./part/footer.html %>
+
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
 </body>
 
 </html>
